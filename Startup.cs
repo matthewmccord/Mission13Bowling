@@ -29,7 +29,7 @@ namespace Mission13Bowling
 
             services.AddDbContext<BowlersDbContext>(options =>
             {
-                options.UseMySql(Configuration["ConnectionStrings:BowlersDbConnection"]);
+                options.UseMySql(Configuration["ConnectionStrings:BowlingDbConnection"]);
             });
         }
 
