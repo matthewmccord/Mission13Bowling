@@ -12,16 +12,16 @@ namespace Mission13Bowling.Controllers
 {
     public class HomeController : Controller
     {
-        private BowlersDbContext _context { get; set; }
+        private IBowlersRepository _repo { get; set; }
 
-        public HomeController(BowlersDbContext temp)
+        public HomeController(IBowlersRepository temp)
         {
-            _context = temp;
+            _repo = temp;
         }
 
         public IActionResult Index()
         {
-            var bowlingList = _context.Bowlers
+            var bowlingList = _repo.Bowlers
                 .ToList();
 
             return View(bowlingList);
