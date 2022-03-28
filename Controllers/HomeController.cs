@@ -27,6 +27,18 @@ namespace Mission13Bowling.Controllers
             return View(bowlingList);
         }
 
+        [HttpGet]
+        public IActionResult AddBowler()
+        {
+            return View();
+        }
         
+        [HttpPost]
+        public IActionResult AddBowler(Bowler b)
+        {
+           
+
+            return View("Confirm", b);
+        }
     }
 }
