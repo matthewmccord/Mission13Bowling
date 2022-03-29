@@ -12,6 +12,7 @@ namespace Mission13Bowling.Models
         [Required]
         public int  BowlerID { get; set; }
         public string BowlerLastName { get; set; }
+        [Required]
         public string BowlerFirstName { get; set; }
         public string BowlerMiddleInit { get; set; }
         public string BowlerAddress { get; set; }
@@ -19,7 +20,9 @@ namespace Mission13Bowling.Models
         public string BowlerState { get; set; }
         public string BowlerZip { get; set; }
         public string BowlerPhoneNumber { get; set; }
+        //Build Foreign Key Relationship
         public int TeamID { get; set; }
+        public Team Team { get; set; }
 
     }
 }

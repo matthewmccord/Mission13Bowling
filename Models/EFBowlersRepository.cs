@@ -14,5 +14,25 @@ namespace Mission13Bowling.Models
         }
 
         public IQueryable<Bowler> Bowlers => _context.Bowlers;
+        public IQueryable<Team> Teams => _context.Teams;
+
+        public void SaveBowler(Bowler bowler)
+        {
+            //I think I still need to handle the issue if the purchase ID is the same
+            _context.SaveChanges();
+        }
+
+        public void CreateBowler(Bowler bowler)
+        {
+            _context.Add(bowler);
+            _context.SaveChanges();
+
+        }
+
+        public void DeleteBowler(Bowler bowler)
+        {
+            _context.Remove(bowler);
+            _context.SaveChanges();
+        }
     }
 }

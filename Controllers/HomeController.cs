@@ -21,8 +21,12 @@ namespace Mission13Bowling.Controllers
 
         public IActionResult Index()
         {
+            ViewBag.TeamList = _repo.Teams.ToList();
+
             var bowlingList = _repo.Bowlers
                 .ToList();
+
+            
 
             return View(bowlingList);
         }
@@ -36,9 +40,46 @@ namespace Mission13Bowling.Controllers
         [HttpPost]
         public IActionResult AddBowler(Bowler b)
         {
-           
+            if (ModelState.IsValid)
+            {
+                _repo.CreateBowler(b);
+                return View("Confirm", b);
+            }
+            else
+            {
+                return View(b);
+            }
+        }
+
+        [HttpGet]
+        public IActionResult Edit(int bowlerid)
+        {
+            var specificBowler = _repo.Bowlers.Single(x=> x.BowlerID == bowlerid);
+            return View("AddBowler", specificBowler);
+        }
+
+        [HttpPost]
+        public IActionResult Edit (Bowler b)
+        {
+
+            _repo.SaveBowler(b);
 
             return View("Confirm", b);
+        }
+        
+        [HttpGet]
+        public IActionResult Delete(int bowlerid)
+        {
+            var specificBowler = _repo.Bowlers.Single(x => x.BowlerID == bowlerid);
+            
+            return View(specificBowler);
+        }
+        
+        [HttpPost]
+        public IActionResult Delete(Bowler b)
+        {
+            _repo.DeleteBowler(b);
+            return RedirectToAction("Index");
         }
     }
 }
