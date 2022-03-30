@@ -1,10 +1,10 @@
 ﻿@{
-//ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Home Page";
 }
 
 @model List<Bowler>
 
-<h1 style="text-align: center">Bowlers</h1>
+<h1 style="text-align: center">@ViewBag.SelectedTeam Bowlers</h1>
 
 
 <table class="table table-sm table-bordered table-hover">
@@ -18,7 +18,7 @@
             <th>State</th>
             <th>Zip</th>
             <th>Phone Number</th>
-            <th>ViewBag</th>
+            <th>Team Name</th>
             <th>Edit</th>
             <th>Delete</th>
         </tr>

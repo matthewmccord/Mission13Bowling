@@ -19,11 +19,14 @@ namespace Mission13Bowling.Controllers
             _repo = temp;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(string teamName)
         {
             ViewBag.TeamList = _repo.Teams.ToList();
+            ViewBag.SelectedTeam = RouteData?.Values["teamName"];
 
             var bowlingList = _repo.Bowlers
+                .Where(b => b.Team.TeamName == teamName || teamName == null)
+                .OrderBy(b => b.BowlerLastName)
                 .ToList();
 
             
@@ -34,6 +37,7 @@ namespace Mission13Bowling.Controllers
         [HttpGet]
         public IActionResult AddBowler()
         {
+            ViewBag.TeamList = _repo.Teams.ToList();
             return View();
         }
         
@@ -42,7 +46,12 @@ namespace Mission13Bowling.Controllers
         {
             if (ModelState.IsValid)
             {
+                ViewBag.TeamList = _repo.Teams.ToList();
+                int teamIdHigh = _repo.Bowlers.OrderBy(x => x.BowlerID).Last().BowlerID;
+
+                b.BowlerID = teamIdHigh + 1;
                 _repo.CreateBowler(b);
+
                 return View("Confirm", b);
             }
             else
@@ -54,6 +63,7 @@ namespace Mission13Bowling.Controllers
         [HttpGet]
         public IActionResult Edit(int bowlerid)
         {
+            ViewBag.TeamList = _repo.Teams.ToList();
             var specificBowler = _repo.Bowlers.Single(x=> x.BowlerID == bowlerid);
             return View("AddBowler", specificBowler);
         }
@@ -62,6 +72,7 @@ namespace Mission13Bowling.Controllers
         public IActionResult Edit (Bowler b)
         {
 
+            ViewBag.TeamList = _repo.Teams.ToList();
             _repo.SaveBowler(b);
 
             return View("Confirm", b);
@@ -70,6 +81,7 @@ namespace Mission13Bowling.Controllers
         [HttpGet]
         public IActionResult Delete(int bowlerid)
         {
+            ViewBag.TeamList = _repo.Teams.ToList();
             var specificBowler = _repo.Bowlers.Single(x => x.BowlerID == bowlerid);
             
             return View(specificBowler);

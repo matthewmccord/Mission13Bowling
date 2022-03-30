@@ -18,7 +18,8 @@ namespace Mission13Bowling.Models
 
         public void SaveBowler(Bowler bowler)
         {
-            //I think I still need to handle the issue if the purchase ID is the same
+            //I think I still need to handle the issue if the bowler ID is the same
+            _context.Update(bowler);
             _context.SaveChanges();
         }
 
